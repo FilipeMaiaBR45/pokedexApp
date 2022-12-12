@@ -23,8 +23,8 @@ class PokemonAdapter @Inject constructor() : androidx.recyclerview.widget.ListAd
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        val anime = getItem(position)
-        holder.bind(anime)
+        val pokemon = getItem(position)
+        holder.bind(pokemon)
     }
 
     override fun getItemId(position: Int): Long {

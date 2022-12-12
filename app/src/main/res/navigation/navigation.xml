@@ -19,5 +19,9 @@
         android:id="@+id/detalhesFragment"
         android:name="com.example.pokedexapp.detalhesFragment.DetalhesFragment"
         android:label="DetalhesFragment"
-        tools:layout="@layout/fragment_detalhes"/>
+        tools:layout="@layout/fragment_detalhes">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
 </navigation>

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -25,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    val viewmodel : HomeViewModel by viewModels()
+    val viewmodel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         binding.viewmodel = viewmodel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         viewmodel.getPokemons()
 
@@ -48,7 +51,7 @@ class HomeFragment : Fragment() {
 
         binding.recyclerview.apply {
             this.adapter = adapter
-            this.layoutManager = LinearLayoutManager(requireContext())
+
         }
 
 
@@ -59,9 +62,28 @@ class HomeFragment : Fragment() {
 
         })
 
-//        binding.recyclerview.addOnItemTouchListener(
-//
-//        )
+        binding.recyclerview.addOnItemTouchListener(
+            RecyclerView(binding.recyclerview, object : com.example.pokedexapp.homeFragment.RecyclerView.OnItemClickListener{
+                override fun onItemClick(view: View, position: Int) {
+                    //var bundle = Bundle();
+                    //Navigation.findNavController(view).navigate(R.id.navigation_notifications, bundle)
+                    Navigation.findNavController(binding.recyclerview).navigate(HomeFragmentDirections.actionHomeFragmentToDetalhesFragment(adapter.getItemId(position)))
+
+                    Toast.makeText(requireContext(), "Toque simples id:${adapter.getItemId(position)}", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onItemLongClick(view: View, position: Int) {
+                    //var bundle = Bundle();
+                   // Navigation.findNavController(_binding.recyclerview).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationAltera2(adapter.getItemId(position)))
+
+                    //Navigation.findNavController(view).navigate(R.id.navigation_altera, bundle)
+                    // Navigation.findNavController(_binding.recyclerview).navigate(HomeFragmentDirections.actionNavigationHomeToNavigationAltera2(adapter.getItemId(position)))
+
+                    Toast.makeText(requireContext(), "Toque longo", Toast.LENGTH_SHORT).show()
+                }
+
+            }))
+
 
 
         return binding.root

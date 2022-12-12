@@ -45,7 +45,7 @@ class HomeViewModel @Inject constructor(private val apiRepository: ApiRepository
                }
 
                override fun onFailure(call: Call<PokemonResponse>, t: Throwable) {
-                   TODO("Not yet implemented")
+                   Log.i("responseee", "Erro na api")
                }
 
            })
