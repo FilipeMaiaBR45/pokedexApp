@@ -27,6 +27,9 @@ class DetalhesViewModel @Inject constructor(private val apiRepository: ApiReposi
     private val _pokemonId : MutableLiveData<Long> = MutableLiveData()
     val pokemonId : LiveData<Long> = _pokemonId
 
+    private val _pokemonImg : MutableLiveData<String> = MutableLiveData()
+    val pokemonImg : LiveData<String> = _pokemonImg
+
     private val _pokemon : MutableLiveData<Pokemon> = MutableLiveData()
     val pokemon : LiveData<Pokemon> = _pokemon
 
@@ -66,6 +69,11 @@ class DetalhesViewModel @Inject constructor(private val apiRepository: ApiReposi
     fun changePokemonId(id : Long){
         _pokemonId.value = id
     }
+
+    fun changePokemonImg(img : String){
+        _pokemonImg.value = img
+    }
+
 
 //    fun getPokemons(){
 //        viewModelScope.launch(Dispatchers.IO) {

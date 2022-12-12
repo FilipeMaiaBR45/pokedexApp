@@ -40,16 +40,32 @@ class DetalhesFragment : Fragment() {
 
         viewmodel.changePokemonId(args.id)
 
-        //Picasso.get().load(viewmodel.listPokemon.value!![viewmodel.pokemonId.value!!.toInt() - 1].img).resize(500,500).into(binding.imageView)
+
 
 
 
        viewmodel.listPokemon.observe(viewLifecycleOwner, Observer {
 
            viewmodel.changePokemonValue(it[viewmodel.pokemonId.value!!.toInt() - 1])
+           viewmodel.changePokemonImg(it[viewmodel.pokemonId.value!!.toInt() - 1].img)
 
 
        })
+
+        viewmodel.pokemonImg.observe(viewLifecycleOwner, Observer {
+            Log.i("image", it)
+            val string = it.substring(0,4) + "s" + it.substring(4, it.lastIndex) + "g"
+            Log.i("img", "$string")
+            Picasso.get().load(string).resize(500,500).into(binding.imageView)
+        })
+
+//        viewmodel.pokemonId.observe(viewLifecycleOwner, Observer {
+//            Picasso.get().load("https://www.serebii.net/pokemongo/pokemon/00${it}.png").resize(500,500).into(binding.imageView)
+//        })
+
+
+
+        //Picasso.get().load("").resize(500,500).into(binding.imageView)
 
         // Inflate the layout for this fragment
 
